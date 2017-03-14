@@ -4,14 +4,12 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {TestComponent} from "./test.component";
 import {ColorComponent} from "./color.component";
-import {Color2Component} from "./color2.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         TestComponent,
-        ColorComponent,
-        Color2Component
+        ColorComponent
     ],
     imports:[
         BrowserModule,
@@ -20,25 +18,25 @@ import {Color2Component} from "./color2.component";
             children:[
                 { path: 'a1' , component : TestComponent,
                     children:[
-                        { path: 'a1' , component : Color2Component},
-                        { path: 'u1' , component : Color2Component , outlet:'up2'},
-                        { path: 'd1' , component : Color2Component , outlet:'down2'}
+                        { path: 'a1' , component : ColorComponent, data:{color:'red'}},
+                        { path: 'u1' , component : ColorComponent, data:{color:'red'} , outlet:'up2'},
+                        { path: 'd1' , component : ColorComponent, data:{color:'red'} , outlet:'down2'}
                 ]},
-                { path: 'u1' , component : Color2Component , outlet:'up2'},
-                { path: 'd1' , component : TestComponent , outlet:'down2',
+                { path: 'u1' , component : ColorComponent , outlet:'up2' , data:{color:'pink'}},
+                { path: 'd1' , component : TestComponent   , outlet:'down2',
                     children:[
-                        { path: 'a1' , component : Color2Component},
-                        { path: 'u1' , component : Color2Component , outlet:'up2'},
-                        { path: 'd1' , component : Color2Component , outlet:'down2'}
+                        { path: 'a1' , component : ColorComponent},
+                        { path: 'u1' , component : ColorComponent , outlet:'up2'},
+                        { path: 'd1' , component : ColorComponent , outlet:'down2'}
                 ]},
             ]
            },
-           { path: 'up'   , component : ColorComponent , outlet:'up'},
+           { path: 'up'   , component : ColorComponent , outlet:'up' , data:{color:'yellow'}},
            { path: 'down' , component : TestComponent, outlet:'down',
                children:[
-                   { path: 'a1' , component : Color2Component , data:{color:'blue'},},
-                   { path: 'u1' , component : Color2Component , data:{color:'blue'}, outlet:'up2'},
-                   { path: 'd1' , component : Color2Component , data:{color:'blue'}, outlet:'down2'}
+                   { path: 'a1' , component : ColorComponent , data:{color:'blue'},},
+                   { path: 'u1' , component : ColorComponent , data:{color:'blue'}, outlet:'up2'},
+                   { path: 'd1' , component : ColorComponent , data:{color:'blue'}, outlet:'down2'}
                ]}
        ],{
             useHash:true,

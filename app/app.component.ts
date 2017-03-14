@@ -1,5 +1,6 @@
-import {Component,VERSION} from "@angular/core";
-import {Router} from "@angular/router";
+import {Component, VERSION, OnDestroy} from "@angular/core";
+import {Router, ActivatedRoute, UrlSegment} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'my-app',
@@ -13,10 +14,24 @@ import {Router} from "@angular/router";
             height: auto;
             margin: 8px;
             padding: 8px;
+            min-width: 150px;
+            min-height: 100px;
+        }
+        .title{
+            background-color: black;
+            color: white;
+            font-size: 12px;
+            padding: 2px;
+            width: 100px;
+            position: absolute;
+            top: -30px;
+            left: -1px;
         }
     `],
     template:`
+    <div class="container">
     <h1>Routing demo ${VERSION.full}</h1>
+    <div>url: {{router.url}}</div>
     <nav>
         <select #i>
             <option>main</option>
@@ -31,21 +46,34 @@ import {Router} from "@angular/router";
         </select>
         <button (click)="nav(i.value)">Go</button><br>
         
-        <a routerLink="[ '/main' ]">main</a> |
+        <a [routerLink]="['/main']">main</a> |
         <a routerLink="[ '/main' , { outlets:{ up:['up'] , down:['down'] } } ]">main(up:up//down:down)</a>
-    </nav>
-    <div class="box">
-        <h5>Outlet up</h5>
-        <router-outlet name="up"></router-outlet>
-        </div>
-    <div class="box"><router-outlet></router-outlet></div>
-    <div class="box">
-        <h5>Outlet down</h5>
-        <router-outlet name="down"></router-outlet>
+    </nav> 
+       <br><br>
+        <div class="row">            
+            <div class="box col-md-4">
+                <h5 class="title">Outlet up</h5>
+                <router-outlet name="up"></router-outlet>
+            </div>
+            <div class="box col-md-4">
+                <h5 class="title">Outlet primary</h5> 
+                <router-outlet></router-outlet>
+            </div>
+            <div class="box col-md-4">
+                <h5 class="title">Outlet down</h5>
+                <router-outlet name="down"></router-outlet>
+            </div>
+        </div>        
     </div>
 `})
-export class AppComponent{
-    constructor(private router:Router){}
+export class AppComponent implements OnDestroy{
+    url:string;
+    sub:Subscription;
+    constructor(
+        private router:Router,
+        private route:ActivatedRoute){
+
+    }
 
     nav(url:string){
         try{
@@ -55,5 +83,9 @@ export class AppComponent{
             console.log(ex);
         }
 
+    }
+
+    ngOnDestroy(){
+        //this.sub.unsubscribe();
     }
 }
