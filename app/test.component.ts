@@ -1,14 +1,11 @@
-/**
- * Created by Eyal on 12/03/2017.
- */
 import {Component} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
+import {BaseComponent} from "./base.component";
 
 @Component({
   selector: 'test',
   styles : [`
- .box{
-            border: 3px solid green;
+ .box{            
             width: auto;
             height: auto;
             margin: 8px 15px;
@@ -33,29 +30,24 @@ import {Router, ActivatedRoute} from "@angular/router";
     <button (click)="nav2()">fill primary</button>
     <br><br>
     <div>
-        <div class="box">
+        <div class="box" [style.border]="'3px solid '+color">
             <h5 class="title1">Outlet up2</h5>
             <router-outlet name="up2"></router-outlet>
         </div>
         <br>
-        <div class="box">
+        <div class="box" [style.border]="'3px solid '+color">
             <h5 class="title1">outlet primary</h5>
             <router-outlet></router-outlet>
         </div>
         <br>
-        <div class="box">
+        <div class="box" [style.border]="'3px solid '+color">
             <h5 class="title1">Outlet down2</h5>
             <router-outlet name="down2"></router-outlet>
         </div>
     </div>
 </div>
 `})
-export class TestComponent {
-    constructor(
-        private router:Router,
-        private route:ActivatedRoute){
-    }
-
+export class TestComponent extends BaseComponent{
     nav(url:string){
         try{
             console.log(`url:${url}`);

@@ -4,6 +4,7 @@
 import {Component, OnDestroy} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
+import {BaseComponent} from "./base.component";
 
 @Component({
   selector: 'color2',
@@ -17,19 +18,4 @@ div{
   {{route.component.name}}
 </div>
 `})
-export class ColorComponent implements OnDestroy{
-    color:string;
-    sub:Subscription;
-
-    constructor(private route:ActivatedRoute){
-        this.sub = route
-            .data
-            .subscribe((p:any)=>{
-                this.color = p.color;
-            });
-    }
-
-    ngOnDestroy(): void {
-        this.sub.unsubscribe();
-    }
-}
+export class ColorComponent extends BaseComponent{}

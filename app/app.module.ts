@@ -4,26 +4,28 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {TestComponent} from "./test.component";
 import {ColorComponent} from "./color.component";
+import {UrlTreeComponent} from "./url.serializer.service";
 
 @NgModule({
     declarations: [
         AppComponent,
         TestComponent,
-        ColorComponent
+        ColorComponent,
+        UrlTreeComponent
     ],
     imports:[
-        BrowserModule,
+       BrowserModule,
        RouterModule.forRoot([
-           { path: 'main' , component : TestComponent,
+           { path: 'main' , component : TestComponent,  data:{color:'red'},
             children:[
-                { path: 'a1' , component : TestComponent,
+                { path: 'a1' , component : TestComponent,  data:{color:'green'},
                     children:[
                         { path: 'a1' , component : ColorComponent, data:{color:'red'}},
                         { path: 'u1' , component : ColorComponent, data:{color:'red'} , outlet:'up2'},
                         { path: 'd1' , component : ColorComponent, data:{color:'red'} , outlet:'down2'}
                 ]},
                 { path: 'u1' , component : ColorComponent , outlet:'up2' , data:{color:'pink'}},
-                { path: 'd1' , component : TestComponent   , outlet:'down2',
+                { path: 'd1' , component : TestComponent   , outlet:'down2', data:{color:'green'},
                     children:[
                         { path: 'a1' , component : ColorComponent},
                         { path: 'u1' , component : ColorComponent , outlet:'up2'},
@@ -31,8 +33,8 @@ import {ColorComponent} from "./color.component";
                 ]},
             ]
            },
-           { path: 'up'   , component : ColorComponent , outlet:'up' , data:{color:'yellow'}},
-           { path: 'down' , component : TestComponent, outlet:'down',
+           { path: 'up'   , component : ColorComponent , outlet:'left' , data:{color:'yellow'}},
+           { path: 'down' , component : TestComponent  , outlet:'right', data:{color:'red'},
                children:[
                    { path: 'a1' , component : ColorComponent , data:{color:'blue'},},
                    { path: 'u1' , component : ColorComponent , data:{color:'blue'}, outlet:'up2'},
